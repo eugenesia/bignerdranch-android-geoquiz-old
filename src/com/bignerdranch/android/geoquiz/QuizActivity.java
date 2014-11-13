@@ -59,6 +59,8 @@ public class QuizActivity extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 checkAnswer(true);
+                mCurrentIndex = (mCurrentIndex + 1) % mQuestionBank.length;
+                updateQuestion();
             }
         });
 
@@ -67,6 +69,8 @@ public class QuizActivity extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 checkAnswer(false);
+                mCurrentIndex = (mCurrentIndex + 1) % mQuestionBank.length;
+                updateQuestion();
             }
         });
         

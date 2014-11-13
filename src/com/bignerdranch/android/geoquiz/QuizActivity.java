@@ -27,14 +27,17 @@ public class QuizActivity extends ActionBarActivity {
 
     private int mCurrentIndex = 0;
 
+    private void updateQuestion() {
+        int question = mQuestionBank[mCurrentIndex].getQuestion();
+        mQuestionTextView.setText(question);
+    }
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
         
         mQuestionTextView = (TextView)findViewById(R.id.question_text_view);
-        int question = mQuestionBank[mCurrentIndex].getQuestion();
-        mQuestionTextView.setText(question);
 
         mTrueButton = (Button)findViewById(R.id.true_button);
         mTrueButton.setOnClickListener(new View.OnClickListener() {
@@ -61,10 +64,11 @@ public class QuizActivity extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 mCurrentIndex = (mCurrentIndex + 1) % mQuestionBank.length;
-                int question = mQuestionBank[mCurrentIndex].getQuestion();
-                mQuestionTextView.setText(question);
+                updateQuestion();
             }
         });
+        
+        updateQuestion();
     }
 
 

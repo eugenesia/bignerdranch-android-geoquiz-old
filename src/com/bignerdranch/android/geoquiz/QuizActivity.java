@@ -11,6 +11,8 @@ import android.widget.Toast;
 
 
 public class QuizActivity extends ActionBarActivity {
+    
+    private static final String TAG = "QuizActivity";
 
     private Button mTrueButton;
     private Button mFalseButton;

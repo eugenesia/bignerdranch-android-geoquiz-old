@@ -88,6 +88,13 @@ public class QuizActivity extends ActionBarActivity {
     }
     
     @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        Log.i(TAG, "onSaveInstanceState");
+        savedInstanceState.putInt(KEY_INDEX, mCurrentIndex);
+    }
+    
+    @Override
     public void onStart() {
         super.onStart();
         Log.d(TAG, "onStart() called");

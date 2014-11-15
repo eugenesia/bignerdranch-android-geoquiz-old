@@ -57,7 +57,7 @@ public class QuizActivity extends ActionBarActivity {
         Log.d(TAG, "onCreate(Bundle) called");
         setContentView(R.layout.activity_quiz);
         
-        // mQuestionTextView = (TextView)findViewById(R.id.question_text_view);
+        mQuestionTextView = (TextView)findViewById(R.id.question_text_view);
 
         mTrueButton = (Button)findViewById(R.id.true_button);
         mTrueButton.setOnClickListener(new View.OnClickListener() {
@@ -79,7 +79,7 @@ public class QuizActivity extends ActionBarActivity {
         mNextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mCurrentIndex = (mCurrentIndex + 1) % mQuestionBank.length;
+                //mCurrentIndex = (mCurrentIndex + 1) % mQuestionBank.length;
                 updateQuestion();
             }
         });

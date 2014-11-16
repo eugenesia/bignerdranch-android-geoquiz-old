@@ -13,16 +13,19 @@ public class CheatActivity extends Activity {
         "com.bignerdranch.android.geoquiz.answer_is_true";
     public static final String EXTRA_ANSWER_SHOWN =
         "com.bignerdranch.android.geoquiz.answer_shown";
+    
+    public static final String KEY_IS_CHEATER = "IS_CHEATER";
 
     private boolean mAnswerIsTrue;
+    private boolean mIsCheater = false;
     
     private TextView mAnswerTextView;
     private Button mShowAnswer;
     
 
-    private void setAnswerShownResult(boolean isAnswerShown) {
+    private void setAnswerShownResult() {
         Intent data = new Intent();
-        data.putExtra(EXTRA_ANSWER_SHOWN, isAnswerShown);
+        data.putExtra(EXTRA_ANSWER_SHOWN, mIsCheater);
         setResult(RESULT_OK, data);
     }
     
@@ -30,23 +33,42 @@ public class CheatActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cheat);
+
+        if (savedInstanceState != null) {
+            mIsCheater = savedInstanceState.getBoolean(KEY_IS_CHEATER);
+        }
         
         mAnswerIsTrue = getIntent().getBooleanExtra(EXTRA_ANSWER_IS_TRUE, false);
         
         mAnswerTextView = (TextView)findViewById(R.id.answerTextView);
         
+        if (mIsCheater) {
+            showAnswer();
+        }
+        
         mShowAnswer = (Button)findViewById(R.id.showAnswerButton);
         mShowAnswer.setOnClickListener(new View.OnClickListener() {            
             @Override
             public void onClick(View v) {
-                if (mAnswerIsTrue) {
-                    mAnswerTextView.setText(R.string.true_button);
-                } else {
-                    mAnswerTextView.setText(R.string.false_button);
-                }
-                setAnswerShownResult(true);
+                mIsCheater = true;
+                showAnswer();
             }
         });
+    }
+    
+    protected void showAnswer() {
+        if (mAnswerIsTrue) {
+            mAnswerTextView.setText(R.string.true_button);
+        } else {
+            mAnswerTextView.setText(R.string.false_button);
+        }
+        setAnswerShownResult();
+    }
+    
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        savedInstanceState.putBoolean(KEY_IS_CHEATER, mIsCheater);
     }
     
 }

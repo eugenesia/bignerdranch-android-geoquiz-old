@@ -14,6 +14,7 @@ public class QuizActivity extends Activity {
     //private static final String TAG = "QuizActivity";
     private static final String KEY_INDEX = "index";
     private static final String KEY_IS_CHEATER = "isCheater";
+    private static final String KEY_QUESTION_CHEATED = "questionCheated";
 
     private Button mTrueButton;
     private Button mFalseButton;
@@ -34,6 +35,9 @@ public class QuizActivity extends Activity {
     
     private boolean mIsCheater;
     
+    // Whether user cheated on each question.
+    private boolean[] mQuestionCheated =
+        {false, false, false, false, false};
 
     private void updateQuestion() {
         int question = mQuestionBank[mCurrentIndex].getQuestion();
@@ -87,7 +91,7 @@ public class QuizActivity extends Activity {
             @Override
             public void onClick(View v) {
                 mCurrentIndex = (mCurrentIndex + 1) % mQuestionBank.length;
-                mIsCheater = false;
+                mIsCheater = mQuestionCheated[mCurrentIndex];
                 updateQuestion();
             }
         });
@@ -95,6 +99,7 @@ public class QuizActivity extends Activity {
         if (savedInstanceState != null) {
             mCurrentIndex = savedInstanceState.getInt(KEY_INDEX, 0);
             mIsCheater = savedInstanceState.getBoolean(KEY_IS_CHEATER, false);
+            mQuestionCheated = savedInstanceState.getBooleanArray(KEY_QUESTION_CHEATED);
         }
         
         mCheatButton = (Button)findViewById(R.id.cheat_button);
@@ -117,6 +122,7 @@ public class QuizActivity extends Activity {
         super.onSaveInstanceState(savedInstanceState);
         savedInstanceState.putInt(KEY_INDEX, mCurrentIndex);
         savedInstanceState.putBoolean(KEY_IS_CHEATER, mIsCheater);
+        savedInstanceState.putBooleanArray(KEY_QUESTION_CHEATED, mQuestionCheated);
     }
     
     @Override
@@ -125,5 +131,6 @@ public class QuizActivity extends Activity {
             return;
         }
         mIsCheater = data.getBooleanExtra(CheatActivity.EXTRA_ANSWER_SHOWN, false);
+        mQuestionCheated[mCurrentIndex] = mIsCheater;
     }
 }

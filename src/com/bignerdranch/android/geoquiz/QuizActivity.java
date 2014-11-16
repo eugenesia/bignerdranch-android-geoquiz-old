@@ -95,7 +95,7 @@ public class QuizActivity extends Activity {
                 Intent i = new Intent(QuizActivity.this, CheatActivity.class);
                 boolean answerIsTrue = mQuestionBank[mCurrentIndex].isTrueQuestion();
                 i.putExtra(CheatActivity.EXTRA_ANSWER_IS_TRUE, answerIsTrue);
-                startActivity(i);
+                startActivityForResult(i, 0);
             }
         });
         

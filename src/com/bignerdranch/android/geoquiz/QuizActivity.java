@@ -1,5 +1,6 @@
 package com.bignerdranch.android.geoquiz;
 
+import android.annotation.TargetApi;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
@@ -60,6 +61,7 @@ public class QuizActivity extends Activity {
             .show();
     }
     
+    @TargetApi(11)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

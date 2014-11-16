@@ -1,14 +1,15 @@
 package com.bignerdranch.android.geoquiz;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 
-public class QuizActivity extends ActionBarActivity {
+public class QuizActivity extends Activity {
     
     //private static final String TAG = "QuizActivity";
     private static final String KEY_INDEX = "index";
@@ -91,7 +92,8 @@ public class QuizActivity extends ActionBarActivity {
             
             @Override
             public void onClick(View v) {
-                // Start CheatActivity
+                Intent i = new Intent(QuizActivity.this, CheatActivity.class);
+                startActivity(i);
             }
         });
         
